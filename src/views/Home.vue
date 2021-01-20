@@ -1,18 +1,36 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+
+    <p>Home page</p>
+   <div v-if="error" class="error">{{error}}</div>
+<ListView :playlists="documents" />
+ 
   </div>
 </template>
 
 <script>
+import { ref } from 'vue';
+import ListView from '../components/ListView'
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+import getCollection from "../composables/getCollection"
+
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+    ListView
+   
+  },
+  setup(){
+const docu=ref([]);
+  const { error, documents}=  getCollection("playlists");
+
+
+
+
+
+  return{documents,error}
   }
+   
 }
 </script>
